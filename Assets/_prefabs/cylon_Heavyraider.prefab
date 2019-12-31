@@ -95,14 +95,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myspot: {fileID: 0}
-  bullet: {fileID: 5855287085192925162, guid: f05868e5cd41d3842b8c48fb56dc9447, type: 3}
+  bullet: {fileID: 5855287085192925162, guid: a8cef6cbafd1fec48b95fe5150818741, type: 3}
+  hp: 0
   speed: 2
   rotSpeed: 60
   shootTimer: 0
-  shootTime: 0
+  shootTime: 2
   collisionTime: 2
   collisionTimer: 0
-  shoot: 0
+  shoot: 1
 --- !u!61 &5941024893776367277
 BoxCollider2D:
   m_ObjectHideFlags: 0

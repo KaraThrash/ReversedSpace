@@ -4,31 +4,79 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-  public float lifetime,speed;
+  public float lifetime,speed,hortSpeed;
+  public float temploc,curveAmplitude; //middle of curve
   public int dmg,type; //type for fight pattern
   public bool alienBullet; //for who to damage
+  public GameObject explosion;
     // Start is called before the first frame update
     void Start()
     {
       if(lifetime == 0){lifetime = 10.0f;}
+      if(type == 1 || type == 2){temploc = transform.position.x;}
     }
 
     // Update is called once per frame
     void Update()
     {
 
+      BulletTypes();
 
-      if(type == 0){  transform.Translate(Vector3.down * speed * Time.deltaTime);} //regular bullet, travels straight
-      else if(type == 1){}
 
       lifetime -= Time.deltaTime;
       if(lifetime <= 0){Die();}
+    }
+    public void BulletTypes()
+    {
+      if(type == 0){  transform.Translate(Vector3.down * speed * Time.deltaTime);} //regular bullet, travels straight
+      else if(type == 1){
+        if( transform.position.x - temploc < -curveAmplitude)
+        {hortSpeed = speed;}
+        if( transform.position.x - temploc > curveAmplitude)
+        {hortSpeed = -speed;}
+
+
+        GetComponent<Rigidbody2D>().AddForce(Vector2.right * hortSpeed *  Time.deltaTime,ForceMode2D.Impulse);
+      }else if(type == 2){
+
+        if( transform.position.x - temploc < -curveAmplitude)
+        {hortSpeed = speed;temploc = transform.position.x + curveAmplitude;}
+        if( transform.position.x - temploc > curveAmplitude)
+        {hortSpeed = -speed;temploc = transform.position.x - curveAmplitude;}
+
+
+        GetComponent<Rigidbody2D>().AddForce(Vector2.right * hortSpeed *  Time.deltaTime,ForceMode2D.Impulse);
+      }
+
     }
     public void OnCollisionEnter2D(Collision2D col)
     {
       // print("red");
       // Destroy(this.gameObject);
+      if(alienBullet == true  )
+      {
+        if( col.transform.GetComponent<EnemyShip>() != null)
+        {col.transform.GetComponent<EnemyShip>().TakeDamage(dmg);
+          Die();}
+          else{
+            if( col.transform.GetComponent<Ship>() != null)
+            {
+              //delete when hitting friendly
+              Destroy(this.gameObject);
+            }
+          }
+
+      }
+      //non friendly bullets destroy each other
+      if(col.transform.GetComponent<Bullet>() != null && col.transform.GetComponent<Bullet>().alienBullet != alienBullet)
+      {Die();}
+      if(alienBullet == false && col.transform.GetComponent<Ship>() != null)
+      {
+        col.transform.GetComponent<Ship>().TakeDamage(dmg);
+          Die();
+      }
     }
     public void Die()
-    {Destroy(this.gameObject);}
+    {Instantiate(explosion,transform.position,transform.rotation);
+      Destroy(this.gameObject);}
 }

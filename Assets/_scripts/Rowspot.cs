@@ -69,7 +69,13 @@ public class Rowspot : MonoBehaviour
 
       playerManager.PlaceShip(this.transform);
       open = false;
+      transform.GetChild(0).gameObject.active = false;
       }
+    }
+    public void SetOpen()
+    {
+      open = true;
+      transform.GetChild(0).gameObject.active = true;
     }
     public void OnTriggerEnter2D(Collider2D col)
     {
