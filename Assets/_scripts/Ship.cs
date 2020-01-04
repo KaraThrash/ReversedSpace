@@ -6,6 +6,7 @@ public class Ship : MonoBehaviour
 {
     public Rowspot myspot;
     public GameObject bullet;
+    public ShipManager shipManager;
     public int hp;
     public float speed,rotSpeed,shootTimer,shootTime;
     public float collisionTime,collisionTimer; // so that ships can be displaced but not vibrate when close to their spot
@@ -22,11 +23,24 @@ public class Ship : MonoBehaviour
       //move towards rowspot
       if(Input.GetKeyDown(KeyCode.Space)){Die();}
       if(myspot != null){MoveToMySpot();}
-      if(shoot == true && shootTime != -1)
-      {
-        ShootClock();
-      }
+
+      //have all ships use the same clock
+
+      // if(shoot == true && shootTime != -1)
+      // {
+      //   ShootClock();
+      // }
     }
+    public GameObject GetBulletType()
+    {
+      return bullet;
+    }
+    public Vector2 GetForward()
+    {
+      return new Vector2(transform.position.x,transform.position.y - GetComponent<Collider2D>().bounds.size.y);
+
+    }
+
     public void TakeDamage(int dmg)
     {
       hp -= dmg;
@@ -35,6 +49,7 @@ public class Ship : MonoBehaviour
 
     public void ToggleShoot(bool onOrOff)
     {shoot = onOrOff;}
+
     public void ShootClock()
     {
       shootTimer -= Time.deltaTime;
@@ -97,7 +112,11 @@ public class Ship : MonoBehaviour
     {
 
       //set row spot as open
-        myspot.SetOpen();
-        Destroy(this.gameObject);
+          if(myspot != null){  myspot.SetOpen();}
+          //tell ship manager this ship is dead and needs to be removed from the list
+        if(shipManager != null){shipManager.ShipDie(GetComponent<Ship>());}
+        else{  Destroy(this.gameObject);}
+
+
     }
 }

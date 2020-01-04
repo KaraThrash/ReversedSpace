@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+  public Transform bulletHolder;
   public float lifetime,speed,hortSpeed;
   public float temploc,curveAmplitude; //middle of curve
   public int dmg,type; //type for fight pattern
-  public bool alienBullet; //for who to damage
+  public bool alienBullet,quedfordestruction; //for who to damage //if the building that made it is destroyed, remove the bullet from circulation
   public GameObject explosion;
     // Start is called before the first frame update
     void Start()
@@ -61,8 +62,9 @@ public class Bullet : MonoBehaviour
           else{
             if( col.transform.GetComponent<Ship>() != null)
             {
+              Die();
               //delete when hitting friendly
-              Destroy(this.gameObject);
+            //  Destroy(this.gameObject);
             }
           }
 
@@ -76,7 +78,27 @@ public class Bullet : MonoBehaviour
           Die();
       }
     }
+    public void Launch(Vector2 newpos,Transform newparent)
+    {
+      transform.parent = newparent;
+      lifetime = 10.0f;
+      transform.position = newpos;
+
+    }
+
     public void Die()
-    {Instantiate(explosion,transform.position,transform.rotation);
-      Destroy(this.gameObject);}
+    {
+
+      Instantiate(explosion,transform.position,transform.rotation);
+      //if this bullets creator is destroyed
+        if(quedfordestruction == true || alienBullet == false){
+          Destroy(this.gameObject);
+        }
+        else
+        {
+            transform.parent = bulletHolder.transform;
+            lifetime = 10.0f;
+            this.gameObject.active = false;
+        }
+    }
 }

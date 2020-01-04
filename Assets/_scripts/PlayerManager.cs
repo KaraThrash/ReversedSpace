@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class PlayerManager : MonoBehaviour
 {
   public ShipList shiplist;
+  public ShipManager shipManager;
   public int money,moneyIncrement;// current money, and how much the money increases at a time interval
   public float moneyTimer,moneyTime;
   public int shipNumberSelected;
@@ -42,11 +43,15 @@ public class PlayerManager : MonoBehaviour
       {
         //deduct money
         money -= shipNumberSelected;
-          moneyText.text = money.ToString();
+        moneyText.text = money.ToString();
+
         GameObject clone = Instantiate(shiplist.GetShipObject(shipNumberSelected),transform.position,placeInRow.transform.rotation);
         // clone.transform.parent = placeInRow;
         placeInRow.GetComponent<Rowspot>().myShip = clone.GetComponent<Ship>();
         clone.GetComponent<Ship>().myspot = placeInRow.GetComponent<Rowspot>();
+          clone.GetComponent<Ship>().shipManager = shipManager;
+        if(shipManager != null)
+        { shipManager.AddShipToList(clone.GetComponent<Ship>());}
       }
 
       //spawn ship shipNumberSelected from ShipList

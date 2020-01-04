@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class Rowspot : MonoBehaviour
 {
   public PlayerManager playerManager;
+
   public Toggle shootToggle;
   public Rowspot rowParent;
   public Ship myShip;
@@ -47,12 +48,15 @@ public class Rowspot : MonoBehaviour
     }
     public void ToggleShoot(bool onOrOff)
     {
-      print(onOrOff);
+
       foreach (Transform go in transform)
       {
         if(go.childCount > 1)
-        { if(go.GetComponent<Rowspot>() != null && go.GetComponent<Rowspot>().myShip != null)
+        {
+
+          if(go.GetComponent<Rowspot>() != null && go.GetComponent<Rowspot>().myShip != null)
             { go.GetComponent<Rowspot>().myShip.GetComponent<Ship>().ToggleShoot(shootToggle.isOn); }
+            
         }
       }
     }
