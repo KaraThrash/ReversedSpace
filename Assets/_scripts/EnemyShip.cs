@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class EnemyShip : MonoBehaviour
 {
   public Pathfind pathFind;
   public List<int> bestPath;
-  public int hp,maxDistanceFromCenter,direction,currentTarget;
+  public int hp,maxDistanceFromCenter,direction,currentTarget,timeshit;
   public float speed,curspeed,shootTimer,shootTime,metranome;
+  public Text timeshittext;
     public GameObject bullet;
     // Start is called before the first frame update
     void Start()
@@ -110,10 +111,23 @@ public class EnemyShip : MonoBehaviour
       hp -= dmg;
 
     }
+    public void OnCollisionEnter2D(Collision2D col)
+    {
+      if(col.transform.GetComponent<Bullet>() != null  )
+      {
+        timeshit++;
+        timeshittext.text = timeshit.ToString();
+      //  print("bullet hit enemy ship");
+      //  hp --;
+      }
+
+    }
     public void OnTriggerEnter2D(Collider2D col)
     {
       if(col.transform.GetComponent<Bullet>() != null  )
       {
+        timeshit++;
+        timeshittext.text = timeshit.ToString();
       //  print("bullet hit enemy ship");
       //  hp --;
       }
