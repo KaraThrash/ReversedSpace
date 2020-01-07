@@ -60,14 +60,18 @@ public class EnemyShip : MonoBehaviour
 
         currentTarget = bestPath[0];
       if(bestPath[0] < transform.localPosition.x)
-      { curspeed = speed; print(" left");}
+      { curspeed = speed; }
       else  if(bestPath[0] > transform.localPosition.x)
-        { curspeed = -speed;print(" right");}
-        else{curspeed = 0;print("stay");}
+        { curspeed = -speed;}
+        else{curspeed = 0;}
 
       }
 
-        else{bestPath = pathFind.GetPath();  currentTarget = bestPath[0];}
+        else{
+          bestPath = pathFind.GetPath();
+          if(bestPath.Count > 0){  currentTarget = bestPath[0];}
+
+        }
 
       // metranome -= 1;
       // if(metranome <= 0)

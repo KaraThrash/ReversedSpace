@@ -8,6 +8,7 @@ public class Ship : MonoBehaviour
     public GameObject bullet;
     public ShipManager shipManager;
     public int hp;
+    public int rhythm,rhythmcount;
     public float speed,rotSpeed,shootTimer,shootTime;
     public float collisionTime,collisionTimer; // so that ships can be displaced but not vibrate when close to their spot
     public bool shoot;
@@ -31,13 +32,25 @@ public class Ship : MonoBehaviour
       //   ShootClock();
       // }
     }
+    public bool CheckRhythm()
+    {
+
+      rhythmcount++;
+      if(rhythmcount == rhythm)
+      { rhythmcount = 0;
+        return true;
+      }
+      return false;
+    }
     public GameObject GetBulletType()
     {
       return bullet;
     }
     public Vector2 GetForward()
     {
-      return new Vector2(transform.position.x,transform.position.y - GetComponent<Collider2D>().bounds.size.y);
+      return new Vector2(transform.position.x,transform.position.y - 1);
+      //TODO: decide if this should just be a universal 1 and fire to the square in front
+      // return new Vector2(transform.position.x,transform.position.y - GetComponent<Collider2D>().bounds.size.y);
 
     }
 
@@ -77,17 +90,18 @@ public class Ship : MonoBehaviour
               {
                 GetComponent<Rigidbody2D>().AddForce((myspot.transform.position - transform.position).normalized * speed * Time.deltaTime,ForceMode2D.Impulse);
               }
-      }
-      else{
+        }
+        else{
 
             if(collisionTimer > 0){
-
+                //after bumping into something, take time to readjust before snapping to position
               collisionTimer -= Time.deltaTime;
               transform.rotation = Quaternion.RotateTowards(transform.rotation, myspot.transform.rotation, rotSpeed * Time.deltaTime);
             GetComponent<Rigidbody2D>().AddForce((myspot.transform.position - transform.position).normalized * speed *  Time.deltaTime,ForceMode2D.Impulse);
             }
             else
             {
+
               transform.rotation = Quaternion.RotateTowards(transform.rotation, myspot.transform.rotation, rotSpeed * Time.deltaTime);
             // GetComponent<Rigidbody2D>().AddForce((myspot.transform.position - transform.position).normalized * speed * 4 * Time.deltaTime,ForceMode2D.Impulse);
             transform.position = Vector3.MoveTowards(transform.position, myspot.transform.position, speed * Time.deltaTime);
@@ -102,7 +116,10 @@ public class Ship : MonoBehaviour
     public void OnMouseUp()
     {
       //do action
-      Instantiate(bullet,new Vector2(transform.position.x,transform.position.y - (GetComponent<Collider2D>().bounds.size.y) ),transform.rotation);
+      shipManager.FireBullet(new Vector2(transform.position.x,transform.position.y - (GetComponent<Collider2D>().bounds.size.y) ));
+      // GameObject clone = Instantiate(bullet,new Vector2(transform.position.x,transform.position.y - (GetComponent<Collider2D>().bounds.size.y) ),transform.rotation) as GameObject;
+
+
     }
     public void OnCollisionEnter2D(Collision2D col)
     {

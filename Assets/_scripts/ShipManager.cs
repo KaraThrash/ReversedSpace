@@ -34,22 +34,30 @@ public class ShipManager : MonoBehaviour
     {
       foreach(Ship firingship in ships)
       {
-        if(bulletHolder.childCount > 0)
+        //check if the ship fires on this sequence of the count
+        // always increment the count for rhythm even if there is no bullet to fire
+        if(firingship.CheckRhythm() == true)
         {
-          GameObject tempbullet = bulletHolder.GetChild(0).gameObject;
-          tempbullet.active = true;
-          //launch the bullet and c hange it's parent
-          tempbullet.GetComponent<Bullet>().Launch(firingship.GetForward(),mapCenter);
-          // Instantiate(firingship.GetBulletType(),firingship.GetForward(),transform.rotation);
+          FireBullet(firingship.GetForward());
         }
-
       }
 
     }
-
+    public void FireBullet(Vector2 fromwhere)
+    {
+      if(bulletHolder.childCount > 0 )
+      {
+        GameObject tempbullet = bulletHolder.GetChild(0).gameObject;
+        tempbullet.active = true;
+        //launch the bullet and change it's parent
+        tempbullet.GetComponent<Bullet>().Launch(fromwhere,mapCenter);
+        // Instantiate(firingship.GetBulletType(),firingship.GetForward(),transform.rotation);
+      }
+    }
     public void AddShipToList(Ship newship)
     {
       ships.Add(newship);
+      newship.shipManager = GetComponent<ShipManager>();
     }
 
     public void ShipDie(Ship deadship)
@@ -57,7 +65,7 @@ public class ShipManager : MonoBehaviour
 
       if(ships.Contains(deadship))
       {
-        ships.Remove(deadship);
+         ships.Remove(deadship);
           Destroy(deadship.gameObject);
       }
 

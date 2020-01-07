@@ -94,14 +94,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f39dbe725e8fbfd4a891ebb9b7b4c7a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifetime: 0
-  speed: 1
+  bulletHolder: {fileID: 0}
+  lifetime: 3
+  speed: 0
   hortSpeed: 0
   temploc: 0
   curveAmplitude: 0
   dmg: 1
   type: 0
   alienBullet: 0
+  quedfordestruction: 0
   explosion: {fileID: 6423964024053615024, guid: 771447d0551d66e4fa57d3884aefd038,
     type: 3}
 --- !u!58 &5855287085192925142
@@ -111,7 +113,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5855287085192925162}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
