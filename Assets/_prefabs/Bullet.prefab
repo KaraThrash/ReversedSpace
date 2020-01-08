@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f39dbe725e8fbfd4a891ebb9b7b4c7a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletHolder: {fileID: 0}
   lifetime: 0
   speed: 1
   hortSpeed: 0
@@ -104,6 +105,7 @@ MonoBehaviour:
   dmg: 1
   type: 0
   alienBullet: 1
+  quedfordestruction: 0
   explosion: {fileID: 6423964024053615024, guid: 771447d0551d66e4fa57d3884aefd038,
     type: 3}
 --- !u!58 &5855287085192925142

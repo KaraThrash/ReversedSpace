@@ -98,7 +98,7 @@ MonoBehaviour:
   bullet: {fileID: 5855287085192925162, guid: a7a0699075a2c164d906af105118a58d, type: 3}
   shipManager: {fileID: 0}
   hp: 0
-  rhythm: 3
+  rhythm: 5
   rhythmcount: 0
   speed: 3
   rotSpeed: 60

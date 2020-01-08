@@ -25,6 +25,7 @@ public class EnemyShip : MonoBehaviour
       // {
       //   transform.Translate(transform.right * -curspeed * 1.1f  * Time.deltaTime);
       // }
+
       transform.localPosition = Vector2.MoveTowards(transform.localPosition, new Vector2(currentTarget,0), speed  * Time.deltaTime);
       if(transform.localPosition.x == currentTarget)
       {
@@ -39,9 +40,12 @@ public class EnemyShip : MonoBehaviour
         //   { curspeed = -speed;print(" right");}
         //   else{curspeed = 0;print("stay");}
         //
-        // }
-        //
-        //   else{bestPath = pathFind.GetPath();  currentTarget = bestPath[0];}
+        // }else{bestPath = pathFind.GetPath();  }
+
+      }else{
+
+
+
       }
       // transform.Translate(transform.right * curspeed  * Time.deltaTime);
 
@@ -55,7 +59,8 @@ public class EnemyShip : MonoBehaviour
     public void IncrementClock()
     {
       if(bestPath.Count > 0){
-        bestPath.RemoveAt(0);}
+        bestPath.RemoveAt(bestPath.Count - 1);
+      }
       if(bestPath.Count > 0){
 
         currentTarget = bestPath[0];
@@ -69,7 +74,22 @@ public class EnemyShip : MonoBehaviour
 
         else{
           bestPath = pathFind.GetPath();
-          if(bestPath.Count > 0){  currentTarget = bestPath[0];}
+          int count = 0;
+          if(bestPath.Count > 0){
+            print("test");
+            foreach(int el in bestPath)
+            {   count ++;
+                Instantiate(bullet,new Vector2(transform.parent.position.x + el,transform.position.y + count ),transform.rotation);
+            }
+             currentTarget = bestPath[bestPath.Count - 1];
+
+           }else
+           {
+             bestPath.Add(1);
+              bestPath.Add(2);
+               bestPath.Add(3);
+                bestPath.Add(4);
+           }
 
         }
 
