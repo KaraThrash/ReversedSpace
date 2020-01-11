@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour
 {
   public Transform bulletHolder;
   public float lifetime,speed,hortSpeed;
-  public float temploc,curveAmplitude; //middle of curve
+  public float temploc,curveAmplitude; //temploc is the variable for the middle of the curve
   public int dmg,type; //type for fight pattern
   public bool alienBullet,quedfordestruction; //for who to damage //if the building that made it is destroyed, remove the bullet from circulation
   public GameObject explosion;
@@ -30,7 +30,8 @@ public class Bullet : MonoBehaviour
     public void BulletTypes()
     {
       if(type == 0){  transform.Translate(Vector3.down * speed * Time.deltaTime);} //regular bullet, travels straight
-      else if(type == 1){
+      //moves in a sinewave
+       else if(type == 1){
         if( transform.position.x - temploc < -curveAmplitude)
         {hortSpeed = speed;}
         if( transform.position.x - temploc > curveAmplitude)
@@ -52,8 +53,7 @@ public class Bullet : MonoBehaviour
     }
     public void OnCollisionEnter2D(Collision2D col)
     {
-      // print("red");
-      // Destroy(this.gameObject);
+
       if(alienBullet == true  )
       {
         if( col.transform.GetComponent<EnemyShip>() != null)
