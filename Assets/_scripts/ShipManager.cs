@@ -38,7 +38,8 @@ public class ShipManager : MonoBehaviour
         // always increment the count for rhythm even if there is no bullet to fire
         if(firingship.CheckRhythm() == true)
         {
-          FireBullet(firingship.GetForward());
+          firingship.FireBullet();
+          // FireBullet(firingship.transform.position + firingship.transform.forward);
         }
       }
 
@@ -47,10 +48,11 @@ public class ShipManager : MonoBehaviour
     {
       if(bulletHolder.childCount > 0 )
       {
-        GameObject tempbullet = bulletHolder.GetChild(0).gameObject;
-        tempbullet.active = true;
-        //launch the bullet and change it's parent
-        tempbullet.GetComponent<Bullet>().Launch(fromwhere,mapCenter);
+        // GameObject tempbullet = bulletHolder.GetChild(0).gameObject;
+        // tempbullet.active = true;
+        // //launch the bullet and change it's parent
+        // tempbullet.GetComponent<Bullet>().Launch(fromwhere,mapCenter);
+        // tempbullet.transform.rotation =
         // Instantiate(firingship.GetBulletType(),firingship.GetForward(),transform.rotation);
       }
     }

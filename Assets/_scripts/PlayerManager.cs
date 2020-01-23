@@ -10,6 +10,7 @@ public class PlayerManager : MonoBehaviour
   public float moneyTimer,moneyTime;
   public int shipNumberSelected;
   public Text moneyText;
+  public GameObject earthShip;
     // Start is called before the first frame update
     void Start()
     {
@@ -58,6 +59,25 @@ public class PlayerManager : MonoBehaviour
       //set new ship as child of placeInRow
 
     }
+    public void EnableShip(GameObject newship,Vector3 placepos)
+    {
+      if(money >= shipNumberSelected)
+      {
+        //deduct money
+        money -= shipNumberSelected;
+        moneyText.text = money.ToString();
+        newship.GetComponent<Ship>().Activate(earthShip);
+        // GameObject clone = Instantiate(shiplist.GetShipObject(shipNumberSelected),placepos,transform.rotation);
+        // clone.transform.parent = placeInRow;
+        // placeInRow.GetComponent<Rowspot>().myShip = clone.GetComponent<Ship>();
+        // clone.GetComponent<Ship>().myspot = placeInRow.GetComponent<Rowspot>();
+          newship.GetComponent<Ship>().shipManager = shipManager;
+        if(shipManager != null)
+        { shipManager.AddShipToList(newship.GetComponent<Ship>());}
+      }
+
+    }
+
     public void SelectShip(int shipNumber)
     {
       //button press to select

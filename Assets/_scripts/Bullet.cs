@@ -10,9 +10,12 @@ public class Bullet : MonoBehaviour
   public int dmg,type; //type for fight pattern
   public bool alienBullet,quedfordestruction; //for who to damage //if the building that made it is destroyed, remove the bullet from circulation
   public GameObject explosion;
+  public Vector3 direction;
     // Start is called before the first frame update
     void Start()
     {
+      if(bulletHolder == null)
+      {bulletHolder = GameObject.Find("ActiveBullets").transform;}
       if(lifetime == 0){lifetime = 10.0f;}
       if(type == 1 || type == 2){temploc = transform.position.x;}
     }
@@ -29,7 +32,10 @@ public class Bullet : MonoBehaviour
     }
     public void BulletTypes()
     {
-      if(type == 0){  transform.Translate(Vector3.down * speed * Time.deltaTime);} //regular bullet, travels straight
+      if(type == 0){
+        GetComponent<Rigidbody2D>().velocity = direction * speed;}
+        // transform.Translate(direction * speed * Time.deltaTime);}
+         //regular bullet, travels straight
       //moves in a sinewave
        else if(type == 1){
         if( transform.position.x - temploc < -curveAmplitude)
@@ -85,7 +91,11 @@ public class Bullet : MonoBehaviour
       transform.position = newpos;
 
     }
+    public void Launch(Transform from)
+    {
+      direction = (from.position - transform.position).normalized;
 
+    }
     public void Die()
     {
 

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5941024893776367266}
   - component: {fileID: 5941024893776367277}
   - component: {fileID: 5941024893776367276}
+  - component: {fileID: 1159640799242741117}
   m_Layer: 0
   m_Name: cylon_raider (1)
   m_TagString: Untagged
@@ -96,6 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myspot: {fileID: 0}
   bullet: {fileID: 5855287085192925162, guid: f05868e5cd41d3842b8c48fb56dc9447, type: 3}
+  earthShip: {fileID: 0}
   shipManager: {fileID: 0}
   hp: 0
   rhythm: 3
@@ -107,6 +109,7 @@ MonoBehaviour:
   collisionTime: 1
   collisionTimer: 0
   shoot: 1
+  activated: 0
 --- !u!61 &5941024893776367277
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -114,7 +117,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5941024893776367265}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -147,10 +150,34 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 2
-  m_AngularDrag: 1
+  m_AngularDrag: 10
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1159640799242741117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5941024893776367265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 625fc81befd051141a0d24c071b1b4e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  phase: 0
+  shiptype: 0
+  dist0: 5
+  speed: 2
+  rotSpeed: 300
+  earthShip: {fileID: 0}
+  startpos: {x: 0, y: 0, z: 0}
+  targetpos: {x: 0, y: 0, z: 0}
+  pattern:
+  - {x: 5, y: 5, z: 0}
+  - {x: 0, y: 10, z: 0}
+  - {x: 5, y: 0, z: 0}
