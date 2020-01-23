@@ -66,14 +66,8 @@ public class PlayerManager : MonoBehaviour
         //deduct money
         money -= shipNumberSelected;
         moneyText.text = money.ToString();
-        newship.GetComponent<Ship>().Activate(earthShip);
-        // GameObject clone = Instantiate(shiplist.GetShipObject(shipNumberSelected),placepos,transform.rotation);
-        // clone.transform.parent = placeInRow;
-        // placeInRow.GetComponent<Rowspot>().myShip = clone.GetComponent<Ship>();
-        // clone.GetComponent<Ship>().myspot = placeInRow.GetComponent<Rowspot>();
-          newship.GetComponent<Ship>().shipManager = shipManager;
         if(shipManager != null)
-        { shipManager.AddShipToList(newship.GetComponent<Ship>());}
+        { shipManager.EnableShip(newship);}
       }
 
     }

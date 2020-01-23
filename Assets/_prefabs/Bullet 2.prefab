@@ -95,7 +95,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f39dbe725e8fbfd4a891ebb9b7b4c7a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifetime: 0
+  bulletHolder: {fileID: 0}
+  lifetime: 10
   speed: 5
   hortSpeed: 2
   temploc: 0
@@ -103,8 +104,10 @@ MonoBehaviour:
   dmg: 1
   type: 2
   alienBullet: 1
+  quedfordestruction: 0
   explosion: {fileID: 6423964024053615024, guid: 771447d0551d66e4fa57d3884aefd038,
     type: 3}
+  direction: {x: 0, y: 0, z: 0}
 --- !u!58 &5855287085192925142
 CircleCollider2D:
   m_ObjectHideFlags: 0

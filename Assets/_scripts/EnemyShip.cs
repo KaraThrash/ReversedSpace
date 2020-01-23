@@ -53,7 +53,7 @@ public class EnemyShip : MonoBehaviour
 
       // if(Random.Range(0, 150) == 0){direction = -direction;}
       // CheckEdge();
-      //  ShootClock();
+       ShootClock();
 
     }
     public void IncrementClock()
@@ -117,7 +117,10 @@ public class EnemyShip : MonoBehaviour
       if(shootTimer <= 0)
       {
         shootTimer = shootTime;
-        Instantiate(bullet,new Vector2(transform.position.x,transform.position.y + (GetComponent<Collider2D>().bounds.size.y) ),transform.rotation);
+        GameObject tempbullet = Instantiate(bullet,transform.position - transform.up,transform.rotation);
+        tempbullet.GetComponent<Bullet>().Launch(this.transform);
+        tempbullet.GetComponent<Collider2D>().enabled = true;
+        // Instantiate(bullet,new Vector2(transform.position.x,transform.position.y + (GetComponent<Collider2D>().bounds.size.y) ),transform.rotation);
       }
     }
     public void CheckEdge()

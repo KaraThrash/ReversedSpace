@@ -100,6 +100,7 @@ MonoBehaviour:
   earthShip: {fileID: 0}
   shipManager: {fileID: 0}
   hp: 0
+  points: 0
   rhythm: 3
   rhythmcount: 0
   speed: 9
@@ -120,7 +121,7 @@ BoxCollider2D:
   m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -178,6 +179,6 @@ MonoBehaviour:
   startpos: {x: 0, y: 0, z: 0}
   targetpos: {x: 0, y: 0, z: 0}
   pattern:
-  - {x: 5, y: 5, z: 0}
-  - {x: 0, y: 10, z: 0}
-  - {x: 5, y: 0, z: 0}
+  - {x: 5, y: 5, z: 2}
+  - {x: 0, y: -5, z: 2}
+  - {x: -2, y: 0, z: 2}

@@ -7,7 +7,7 @@ public class Ship : MonoBehaviour
     public Rowspot myspot;
     public GameObject bullet,earthShip;
     public ShipManager shipManager;
-    public int hp;
+    public int hp,points;//points for base +$ or other bonuses
     public int rhythm,rhythmcount;
     public float speed,rotSpeed,shootTimer,shootTime;
     public float collisionTime,collisionTimer; // so that ships can be displaced but not vibrate when close to their spot
@@ -66,10 +66,10 @@ public class Ship : MonoBehaviour
     }
     public void FireBullet()
     {
-      GameObject tempbullet = Instantiate(bullet,transform.position - transform.up,transform.rotation);
+      // GameObject tempbullet = Instantiate(bullet,transform.position - transform.up,transform.rotation);
       // tempbullet.active = true;
       //launch the bullet and change it's parent
-      tempbullet.GetComponent<Bullet>().Launch(this.transform);
+      // tempbullet.GetComponent<Bullet>().Launch(this.transform);
       // tempbullet.transform.rotation =
       // Instantiate(firingship.GetBulletType(),firingship.GetForward(),transform.rotation);
 
@@ -141,7 +141,7 @@ public class Ship : MonoBehaviour
     {
         if(activated == true){
           //do action
-          shipManager.FireBullet(new Vector2(transform.position.x,transform.position.y - (GetComponent<Collider2D>().bounds.size.y) ));
+          // shipManager.FireBullet(new Vector2(transform.position.x,transform.position.y - (GetComponent<Collider2D>().bounds.size.y) ));
           // GameObject clone = Instantiate(bullet,new Vector2(transform.position.x,transform.position.y - (GetComponent<Collider2D>().bounds.size.y) ),transform.rotation) as GameObject;
 
         }

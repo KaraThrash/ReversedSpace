@@ -96,16 +96,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletHolder: {fileID: 0}
   lifetime: 3
-  speed: 0
-  hortSpeed: 0
+  speed: -2
+  hortSpeed: 2
   temploc: 0
-  curveAmplitude: 0
+  curveAmplitude: 1
   dmg: 1
   type: 0
   alienBullet: 0
   quedfordestruction: 0
   explosion: {fileID: 6423964024053615024, guid: 771447d0551d66e4fa57d3884aefd038,
     type: 3}
+  direction: {x: 0, y: 0, z: 0}
 --- !u!58 &5855287085192925142
 CircleCollider2D:
   m_ObjectHideFlags: 0

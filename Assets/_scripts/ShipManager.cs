@@ -7,6 +7,7 @@ public class ShipManager : MonoBehaviour
   public List<Ship> ships;
   public float shotTimer,shotTime;
   public Transform bulletHolder,mapCenter;
+  public GameObject earthShip;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,26 +37,39 @@ public class ShipManager : MonoBehaviour
       {
         //check if the ship fires on this sequence of the count
         // always increment the count for rhythm even if there is no bullet to fire
-        if(firingship.CheckRhythm() == true)
-        {
-          firingship.FireBullet();
-          // FireBullet(firingship.transform.position + firingship.transform.forward);
-        }
+      //  if(firingship.CheckRhythm() == true)
+    //    {
+          // firingship.FireBullet();
+          FireBullet(firingship.transform.position + firingship.transform.forward,firingship);
+      //  }
       }
 
     }
-    public void FireBullet(Vector2 fromwhere)
+    public void FireBullet(Vector2 fromwhere,Ship firingship)
     {
-      if(bulletHolder.childCount > 0 )
-      {
-        // GameObject tempbullet = bulletHolder.GetChild(0).gameObject;
-        // tempbullet.active = true;
-        // //launch the bullet and change it's parent
-        // tempbullet.GetComponent<Bullet>().Launch(fromwhere,mapCenter);
-        // tempbullet.transform.rotation =
-        // Instantiate(firingship.GetBulletType(),firingship.GetForward(),transform.rotation);
-      }
+      GameObject tempbullet = Instantiate(firingship.GetBulletType(),firingship.transform.position - firingship.transform.up,transform.rotation);
+      tempbullet.GetComponent<Bullet>().Launch(firingship.transform);
+      tempbullet.transform.parent = mapCenter;
+      // if(bulletHolder.childCount > 0 )
+      // {
+      //   // GameObject tempbullet = bulletHolder.GetChild(0).gameObject;
+      //   // tempbullet.active = true;
+      //   // //launch the bullet and change it's parent
+      //   tempbullet = Instantiate(firingship.GetBulletType(),firingship.GetForward(),transform.rotation);
+      //   tempbullet.GetComponent<Bullet>().Launch(fromwhere,mapCenter);
+      //   // tempbullet.transform.rotation =
+      //
+      // }
     }
+
+    public void EnableShip(GameObject newship)
+    {
+
+          AddShipToList(newship.GetComponent<Ship>());
+            newship.GetComponent<Ship>().Activate(earthShip);
+
+    }
+
     public void AddShipToList(Ship newship)
     {
       ships.Add(newship);
