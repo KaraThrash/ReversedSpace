@@ -4,16 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 public class DragAndDrop : MonoBehaviour
 {
+  public GameManager gameManager;
   public PlayerManager playerManager;
   public int shiptype = -1;
   public bool midclick = false;
-  public GameObject highlightedImage,currentlySelectedImage;
+  public GameObject highlightedImage,currentlySelectedShip;
   public List<GameObject> shipSprites;
+  public List<Button> purchaseButtons;
   public Vector3 worldPos;
     // Start is called before the first frame update
     void Start()
     {
-
+UpdateShipButtons(0);
     }
 
     // Update is called once per frame
@@ -22,12 +24,28 @@ public class DragAndDrop : MonoBehaviour
       if(midclick == true)
       {
         worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        currentlySelectedImage.transform.position = new Vector3(worldPos.x,worldPos.y,0);
+        currentlySelectedShip.transform.position = new Vector3(worldPos.x,worldPos.y,0);
         if(Input.GetMouseButtonDown(0))
            {
              //use child colliders to set legal placement dynamicly
         useraycast();
           }
+      }
+    }
+    public void UpdateShipButtons(int currentMoney)
+    {
+      int count = 0;
+      while(count < purchaseButtons.Count)
+      {
+        if(gameManager.CheckMoneyForShip(count) == true )
+        {
+           purchaseButtons[count].interactable = true;
+        }
+          else
+          {
+             purchaseButtons[count].interactable = false;
+          }
+        count++;
       }
     }
     public void useraycast()
@@ -40,9 +58,9 @@ public class DragAndDrop : MonoBehaviour
                if( hit.transform.parent == this.transform)
                {
                  midclick = false;
-                 playerManager.EnableShip(currentlySelectedImage,new Vector3(worldPos.x,worldPos.y,0));
-                 currentlySelectedImage = null;
-                 // currentlySelectedImage = Instantiate(highlightedImage,Input.mousePosition,transform.rotation);
+                 playerManager.EnableShip(currentlySelectedShip,new Vector3(worldPos.x,worldPos.y,0));
+                 currentlySelectedShip = null;
+                 // currentlySelectedShip = Instantiate(highlightedImage,Input.mousePosition,transform.rotation);
                }
              }
 
@@ -52,7 +70,8 @@ public class DragAndDrop : MonoBehaviour
        }
     public void SelectShipFromButton(int newshiptype)
     {
-      if(currentlySelectedImage != null){Destroy(currentlySelectedImage);}
+      if(currentlySelectedShip != null){Destroy(currentlySelectedShip);}
+
       if(newshiptype == -1){
         midclick = false;
         shiptype = newshiptype;
@@ -60,11 +79,15 @@ public class DragAndDrop : MonoBehaviour
       }
       else{
 
-          midclick = true;
-          shiptype = newshiptype;
-          worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-          if(shipSprites.Count >= shiptype )
-          currentlySelectedImage = Instantiate(shipSprites[shiptype],worldPos,transform.rotation);
+
+          if(shipSprites.Count >= newshiptype  && gameManager.CheckMoneyForShip(newshiptype) == true)
+          {
+            midclick = true;
+            shiptype = newshiptype;
+            worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+              currentlySelectedShip = Instantiate(gameManager.shipList.GetShipObject(shiptype),worldPos,transform.rotation);
+          }
+
       }
     }
     public void OnMouseDown()

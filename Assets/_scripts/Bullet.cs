@@ -57,6 +57,34 @@ public class Bullet : MonoBehaviour
       }
 
     }
+    public void OnTriggerEnter2D(Collider2D col)
+    {
+
+      if(alienBullet == true  )
+      {
+        if( col.transform.GetComponent<EnemyShip>() != null)
+        {col.transform.GetComponent<EnemyShip>().TakeDamage(dmg);
+          Die();}
+          else{
+            if( col.transform.GetComponent<Ship>() != null)
+            {
+              Die();
+              //delete when hitting friendly
+            //  Destroy(this.gameObject);
+            }
+          }
+
+      }
+      //non friendly bullets destroy each other
+      if(col.transform.GetComponent<Bullet>() != null && col.transform.GetComponent<Bullet>().alienBullet != alienBullet)
+      {Die();}
+      if(alienBullet == false && col.transform.GetComponent<Ship>() != null)
+      {
+        col.transform.GetComponent<Ship>().TakeDamage(dmg);
+          Die();
+      }
+    }
+
     public void OnCollisionEnter2D(Collision2D col)
     {
 

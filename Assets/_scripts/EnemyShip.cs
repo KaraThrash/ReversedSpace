@@ -76,10 +76,9 @@ public class EnemyShip : MonoBehaviour
           bestPath = pathFind.GetPath();
           int count = 0;
           if(bestPath.Count > 0){
-            print("test");
             foreach(int el in bestPath)
             {   count ++;
-                Instantiate(bullet,new Vector2(transform.parent.position.x + el,transform.position.y + count ),transform.rotation);
+                // Instantiate(bullet,new Vector2(transform.parent.position.x + el,transform.position.y + count ),transform.rotation);
             }
              currentTarget = bestPath[bestPath.Count - 1];
 
@@ -140,7 +139,7 @@ public class EnemyShip : MonoBehaviour
     }
     public void OnCollisionEnter2D(Collision2D col)
     {
-      if(col.transform.GetComponent<Bullet>() != null  )
+      if(col.transform.GetComponent<Bullet>() != null || col.transform.GetComponent<Ship>() != null )
       {
         timeshit++;
         timeshittext.text = timeshit.ToString();
@@ -151,7 +150,7 @@ public class EnemyShip : MonoBehaviour
     }
     public void OnTriggerEnter2D(Collider2D col)
     {
-      if(col.transform.GetComponent<Bullet>() != null  )
+      if(col.transform.GetComponent<Bullet>() != null  || col.transform.GetComponent<Ship>() != null)
       {
         timeshit++;
         timeshittext.text = timeshit.ToString();

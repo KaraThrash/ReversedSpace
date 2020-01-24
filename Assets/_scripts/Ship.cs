@@ -7,7 +7,7 @@ public class Ship : MonoBehaviour
     public Rowspot myspot;
     public GameObject bullet,earthShip;
     public ShipManager shipManager;
-    public int hp,points;//points for base +$ or other bonuses
+    public int hp,points,cost;//points for base +$ or other bonuses
     public int rhythm,rhythmcount;
     public float speed,rotSpeed,shootTimer,shootTime;
     public float collisionTime,collisionTimer; // so that ships can be displaced but not vibrate when close to their spot

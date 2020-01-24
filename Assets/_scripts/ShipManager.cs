@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShipManager : MonoBehaviour
 {
+  public GameManager gameManager;
   public List<Ship> ships;
   public float shotTimer,shotTime;
   public Transform bulletHolder,mapCenter;

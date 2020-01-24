@@ -134,7 +134,8 @@ private Ship myShip;
       HandleRotation();
       switch(phase){
         case 0://strauight down
-              targetpos = new Vector3(transform.position.x,transform.position.y - 1 , 1);
+
+              targetpos = new Vector3(transform.position.x,transform.position.y - 1 ,pattern[0].z );
               rb.velocity = ((targetpos - transform.position).normalized * speed );
 
               if(transform.position.y < earthShip.transform.position.y)
@@ -146,7 +147,7 @@ private Ship myShip;
               }
         break;
         case 1://straight sideways
-          targetpos = new Vector3(transform.position.x - 1,transform.position.y , 1);
+          targetpos = new Vector3(transform.position.x - 1,transform.position.y , pattern[1].z);
 
               rb.velocity = ((targetpos - transform.position).normalized * speed );
               if(Vector2.Distance(transform.position, earthShip.transform.position) > 5)
@@ -158,7 +159,7 @@ private Ship myShip;
                 }
         break;
         case 2://strauight up
-              targetpos = new Vector3(transform.position.x,transform.position.y + 1 , 1);
+              targetpos = new Vector3(transform.position.x,transform.position.y + 1 , pattern[2].z);
               rb.velocity = ((targetpos - transform.position).normalized * speed );
 
               if(transform.position.y >= startpos.y)

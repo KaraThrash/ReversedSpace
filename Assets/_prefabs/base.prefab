@@ -100,6 +100,8 @@ MonoBehaviour:
   earthShip: {fileID: 0}
   shipManager: {fileID: 0}
   hp: 0
+  points: 0
+  cost: 100
   rhythm: 0
   rhythmcount: 0
   speed: 4

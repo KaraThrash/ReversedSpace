@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class PlayerManager : MonoBehaviour
 {
+  public GameManager gameManager;
   public ShipList shiplist;
   public ShipManager shipManager;
   public int money,moneyIncrement;// current money, and how much the money increases at a time interval
@@ -15,6 +16,7 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
       moneyText.text = money.ToString();
+      gameManager.shipPlacementControls.UpdateShipButtons(money);
     }
 
     // Update is called once per frame
@@ -32,7 +34,7 @@ public class PlayerManager : MonoBehaviour
         moneyTimer = moneyTime;
         moneyText.text = money.ToString();
       }
-
+      gameManager.shipPlacementControls.UpdateShipButtons(money);
     }
     public void PlaceShip(Transform placeInRow)
     {
@@ -40,7 +42,7 @@ public class PlayerManager : MonoBehaviour
       //check if ship type selected avilable // default to raider
 
       //check for money
-      if(money >= shipNumberSelected)
+      if(CheckMoney(shipNumberSelected) == true )
       {
         //deduct money
         money -= shipNumberSelected;
@@ -53,25 +55,31 @@ public class PlayerManager : MonoBehaviour
           clone.GetComponent<Ship>().shipManager = shipManager;
         if(shipManager != null)
         { shipManager.AddShipToList(clone.GetComponent<Ship>());}
-      }
 
+      }
+gameManager.shipPlacementControls.UpdateShipButtons(money);
       //spawn ship shipNumberSelected from ShipList
       //set new ship as child of placeInRow
 
     }
     public void EnableShip(GameObject newship,Vector3 placepos)
     {
-      if(money >= shipNumberSelected)
+      if(CheckMoney(shipNumberSelected) == true )
       {
         //deduct money
         money -= shipNumberSelected;
         moneyText.text = money.ToString();
         if(shipManager != null)
         { shipManager.EnableShip(newship);}
+
       }
-
+      gameManager.shipPlacementControls.UpdateShipButtons(money);
     }
-
+    public bool CheckMoney(int cost)
+    {
+        if(money >= cost){return true;}
+        else{return false;}
+    }
     public void SelectShip(int shipNumber)
     {
       //button press to select

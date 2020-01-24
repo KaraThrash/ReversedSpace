@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5855287085192925140}
   - component: {fileID: 5855287085192925142}
   - component: {fileID: 6347596347388626061}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: enemy_bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,10 +114,10 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5855287085192925162}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
