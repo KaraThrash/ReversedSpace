@@ -97,7 +97,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletHolder: {fileID: 0}
   lifetime: 10
-  speed: -5
+  myLifeTime: 10
+  speed: -10
   hortSpeed: 2
   temploc: 0
   curveAmplitude: 0.5
@@ -155,7 +156,7 @@ Animator:
   m_GameObject: {fileID: 5855287085192925162}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c9021ef60c05cbb47bfa917c8ad0defb, type: 2}
+  m_Controller: {fileID: 9100000, guid: f6a8685a8d2aafa4ea350fa2c4740aa3, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

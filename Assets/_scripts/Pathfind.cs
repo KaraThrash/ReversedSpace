@@ -54,6 +54,7 @@ public int pathmaxlength = 5,mapxlength = 10,mapylength = 10;
     public List<int> GetPath()
     {
       //update the maze with the locations of the bullets
+      ResetMaze();
       GetBulletLocations();
       //set iterators to zero
       int rowcount = 0;
@@ -88,7 +89,7 @@ public int pathmaxlength = 5,mapxlength = 10,mapylength = 10;
                     count2++;
                   }
                   //put a mark on the screen to see the path
-                  Instantiate(pathIndicator, new Vector2(transform.position.x + nextspace,transform.position.y + count),transform.rotation);
+                  // Instantiate(pathIndicator, new Vector2(transform.position.x + nextspace,transform.position.y + count),transform.rotation);
                   bestPath.Add(nextspace);
                   count++;
                   distancetonextspot = 99;
@@ -102,11 +103,8 @@ public int pathmaxlength = 5,mapxlength = 10,mapylength = 10;
 
     }
 
-
-    public void GetBulletLocations()
+    public void ResetMaze()
     {
-
-      //reset maze
       int rowcount = 0;
       int colcount = 0;
       while (rowcount < mapylength)
@@ -122,6 +120,12 @@ public int pathmaxlength = 5,mapxlength = 10,mapylength = 10;
 
         rowcount++;
       }
+    }
+    public void GetBulletLocations()
+    {
+
+
+
         foreach(Transform el in activeBullets)
         {
           //check that it is in the array parameters 10x10
@@ -145,7 +149,7 @@ public int pathmaxlength = 5,mapxlength = 10,mapylength = 10;
 
                             }
                             count++;
-                            futurespaces = futurespaces - (int)el.GetComponent<Bullet>().speed;
+                            futurespaces = futurespaces - (int)el.GetComponent<Rigidbody2D>().velocity.y;
                           }
                 }
         }

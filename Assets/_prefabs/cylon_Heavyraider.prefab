@@ -4854,7 +4854,8 @@ MonoBehaviour:
   shipManager: {fileID: 0}
   hp: 0
   points: 0
-  cost: 2
+  cost: 1
+  bulletType: 0
   rhythm: 2
   rhythmcount: 0
   speed: 9

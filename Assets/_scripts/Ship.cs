@@ -7,7 +7,7 @@ public class Ship : MonoBehaviour
     public Rowspot myspot;
     public GameObject bullet,earthShip;
     public ShipManager shipManager;
-    public int hp,points,cost;//points for base +$ or other bonuses
+    public int hp,points,cost,bulletType;//points for base +$ or other bonuses
     public int rhythm,rhythmcount;
     public float speed,rotSpeed,shootTimer,shootTime;
     public float collisionTime,collisionTimer; // so that ships can be displaced but not vibrate when close to their spot
@@ -21,8 +21,9 @@ public class Ship : MonoBehaviour
     {
       activated = true;
       earthShip = target;
-      GetComponent<Collider2D>().enabled = true;
-      GetComponent<ShipPattern>().SetStartPositionInformation();
+      if(  GetComponent<Collider2D>() != null){GetComponent<Collider2D>().enabled = true;}
+      if(  GetComponent<ShipPattern>() != null){GetComponent<ShipPattern>().SetStartPositionInformation();}
+
     }
     // Update is called once per frame
     void Update()
@@ -32,7 +33,7 @@ public class Ship : MonoBehaviour
 
           if(Input.GetKeyDown(KeyCode.Space)){Die();}
           //TODO: set this to be specific based on the ship type
-              if(earthShip != null){GetComponent<ShipPattern>().ExecutePattern();}
+          if(earthShip != null){GetComponent<ShipPattern>().ExecutePattern();}
 
 
       }
@@ -43,6 +44,8 @@ public class Ship : MonoBehaviour
       //   ShootClock();
       // }
     }
+
+    //Note:currently not being used, should it still be used to control when ships shoot
     public bool CheckRhythm()
     {
 

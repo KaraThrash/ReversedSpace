@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - border
+  - bottomOfScreen
   layers:
   - Default
   - TransparentFX

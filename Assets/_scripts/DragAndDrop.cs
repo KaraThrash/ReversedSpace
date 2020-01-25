@@ -58,7 +58,7 @@ UpdateShipButtons(0);
                if( hit.transform.parent == this.transform)
                {
                  midclick = false;
-                 playerManager.EnableShip(currentlySelectedShip,new Vector3(worldPos.x,worldPos.y,0));
+                 playerManager.EnableShip(currentlySelectedShip,new Vector3(worldPos.x,worldPos.y,0),shiptype);
                  currentlySelectedShip = null;
                  // currentlySelectedShip = Instantiate(highlightedImage,Input.mousePosition,transform.rotation);
                }

@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class ShipPattern : MonoBehaviour
 {
-  public int phase,shiptype;
-  public float dist0 = 5,speed = 1.0f,rotSpeed = 5.0f;
-  public GameObject earthShip;
+    public int phase,shiptype;
+    public float dist0 = 5,speed = 1.0f,rotSpeed = 5.0f;
+    public GameObject earthShip;
     public Vector3 startpos,targetpos;
     public List<Vector3> pattern;
-private Rigidbody2D rb;
-private Ship myShip;
+    private Rigidbody2D rb;
+    private Ship myShip;
   //fly diagonal from spawn - for x distance - then turn up and loop back around to the start
 
     // Start is called before the first frame update
@@ -20,15 +20,34 @@ private Ship myShip;
       rb = GetComponent<Rigidbody2D>();
       // SetStartPositionInformation();
     }
+
+    public void OnTriggerEnter2D(Collider2D col)
+    {
+      if(col.transform.tag == "bottomOfScreen")
+      {
+        if( shiptype < 0)
+        {
+            myShip.shipManager.gameManager.BonusFromBase((int)Mathf.Abs(startpos.y - transform.position.y));
+            myShip.Die();
+        }
+      }
+
+    }
     public void SetStartPositionInformation()
     {
       earthShip = myShip.earthShip;
+      //bonuses/bases  are negative values
       switch(shiptype){
+        case -1://basic base for +money
+                startpos = transform.position;
+                if(pattern.Count > 0){  targetpos = startpos - pattern[0];}
+                else{targetpos = new Vector3(startpos.x - dist0,startpos.y - dist0,startpos.z);}
+        break;
         case 0://DiagonalShip
-        startpos = transform.position;
-        //vector 3 list for a easy to change flight path
-        if(pattern.Count > 0){  targetpos = startpos - pattern[0];}
-        else{targetpos = new Vector3(startpos.x - dist0,startpos.y - dist0,startpos.z);}
+                startpos = transform.position;
+                //vector 3 list for a easy to change flight path
+                if(pattern.Count > 0){  targetpos = startpos - pattern[0];}
+                else{targetpos = new Vector3(startpos.x - dist0,startpos.y - dist0,startpos.z);}
 
         //
         break;
@@ -39,8 +58,8 @@ private Ship myShip;
               else{targetpos = new Vector3(startpos.x - dist0,startpos.y - dist0,startpos.z);}
         break;
         default://
-        startpos = transform.position;
-        targetpos = new Vector3(startpos.x - dist0,startpos.y - dist0,startpos.z);
+              startpos = transform.position;
+              targetpos = new Vector3(startpos.x - dist0,startpos.y - dist0,startpos.z);
         break;
 
       }
@@ -50,6 +69,12 @@ private Ship myShip;
     public void ExecutePattern()
     {
       switch(shiptype){
+        case -2://$ based on Time alive
+
+        break;
+        case -1://$ based on distance traveled IF it reaches the bottom
+          BaseMoney();
+        break;
         case 0://Diagonal flight Ship, right traingle pattern bassed on starting location
           DiagonalShip();
         break;
@@ -57,7 +82,7 @@ private Ship myShip;
           SquareShip();
         break;
         case 3://straight forward
-          BaseMoney();
+
         break;
         default://
 
@@ -183,14 +208,14 @@ private Ship myShip;
     }
     public void BaseMoney()
     {
-      targetpos = new Vector3(transform.position.x,transform.position.y - 1 , 1);
-      rb.velocity = ((targetpos - transform.position).normalized * speed );
+        targetpos = new Vector3(transform.position.x,transform.position.y - 1 , 1);
+        rb.velocity = ((targetpos - transform.position).normalized * speed );
 
-      if(transform.position.y < earthShip.transform.position.y)
-      {
-        //give bonus
+        if(transform.position.y < earthShip.transform.position.y)
+        {
+          //give bonus
 
-      }
+        }
 
 
     }

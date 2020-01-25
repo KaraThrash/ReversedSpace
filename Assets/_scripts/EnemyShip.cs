@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class EnemyShip : MonoBehaviour
 {
+  public GameManager gameManager;
   public Pathfind pathFind;
   public List<int> bestPath;
   public int hp,maxDistanceFromCenter,direction,currentTarget,timeshit;
@@ -135,7 +136,7 @@ public class EnemyShip : MonoBehaviour
     public void TakeDamage(int dmg)
     {
       hp -= dmg;
-
+        gameManager.levelManager.UpdateCurrentLevelProgressEnemyDmg(dmg);
     }
     public void OnCollisionEnter2D(Collision2D col)
     {

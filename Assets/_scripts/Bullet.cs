@@ -5,30 +5,44 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
   public Transform bulletHolder;
-  public float lifetime,speed,hortSpeed;
+  public float lifetime,myLifeTime,speed,hortSpeed;
   public float temploc,curveAmplitude; //temploc is the variable for the middle of the curve
   public int dmg,type; //type for fight pattern
   public bool alienBullet,quedfordestruction; //for who to damage //if the building that made it is destroyed, remove the bullet from circulation
   public GameObject explosion;
   public Vector3 direction;
+  private Rigidbody2D rb;
     // Start is called before the first frame update
     void Start()
     {
+      rb = GetComponent<Rigidbody2D>();
       if(bulletHolder == null)
-      {bulletHolder = GameObject.Find("ActiveBullets").transform;}
-      if(lifetime == 0){lifetime = 10.0f;}
+      {bulletHolder = GameObject.Find("BulletHolder").transform;}
+      if(myLifeTime == 0){myLifeTime = 10.0f;}
       if(type == 1 || type == 2){temploc = transform.position.x;}
     }
+    public void ResetToNeutral()
+    {
+      if(bulletHolder == null)
+      {bulletHolder = GameObject.Find("ActiveBullets").transform;}
+      if(bulletHolder != null)
+      {transform.parent = bulletHolder.transform;}
+      lifetime = -1;
+      if(  GetComponent<Collider2D>() != null){GetComponent<Collider2D>().enabled = false;}
 
+      this.gameObject.active = false;
+    }
     // Update is called once per frame
     void Update()
     {
+      if(lifetime != -1)
+      {
+            BulletTypes();
 
-      BulletTypes();
 
-
-      lifetime -= Time.deltaTime;
-      if(lifetime <= 0){Die();}
+            lifetime -= Time.deltaTime;
+            if(lifetime <= 0){Die();}
+      }
     }
     public void BulletTypes()
     {
@@ -112,15 +126,18 @@ public class Bullet : MonoBehaviour
           Die();
       }
     }
-    public void Launch(Vector2 newpos,Transform newparent)
+    public void Launch(Vector2 newpos,Transform newparent,Bullet newtype)
     {
+      type = newtype.type;
+      speed = newtype.speed;
+      lifetime = newtype.myLifeTime;
       transform.parent = newparent;
-      lifetime = 10.0f;
       transform.position = newpos;
 
     }
     public void Launch(Transform from)
     {
+      if(  GetComponent<Animator>() != null){GetComponent<Animator>().SetFloat("bullettype",type);}
       direction = (from.position - transform.position).normalized;
 
     }
@@ -134,9 +151,8 @@ public class Bullet : MonoBehaviour
         }
         else
         {
-            transform.parent = bulletHolder.transform;
-            lifetime = 10.0f;
-            this.gameObject.active = false;
+          ResetToNeutral();
+
         }
     }
 }

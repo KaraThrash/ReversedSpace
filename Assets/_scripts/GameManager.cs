@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
   public DragAndDrop shipPlacementControls;
   public WorldClock worldClock;
   public ShipList shipList;
+  public LevelManager levelManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,4 +27,11 @@ public class GameManager : MonoBehaviour
         if(playerManager.CheckMoney(shipList.GetShipObject(shiptype).GetComponent<Ship>().cost) == true){return true;}
         else{return false;}
     }
+
+    public void BonusFromBase(int points)
+    {
+      playerManager.AddMoney(points);
+
+    }
+
 }

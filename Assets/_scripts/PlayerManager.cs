@@ -30,9 +30,8 @@ public class PlayerManager : MonoBehaviour
       moneyTimer -= Time.deltaTime;
       if(moneyTimer <= 0)
       {
-        money += moneyIncrement;
         moneyTimer = moneyTime;
-        moneyText.text = money.ToString();
+        AddMoney(moneyIncrement);
       }
       gameManager.shipPlacementControls.UpdateShipButtons(money);
     }
@@ -45,8 +44,7 @@ public class PlayerManager : MonoBehaviour
       if(CheckMoney(shipNumberSelected) == true )
       {
         //deduct money
-        money -= shipNumberSelected;
-        moneyText.text = money.ToString();
+        AddMoney(-shipNumberSelected);
 
         GameObject clone = Instantiate(shiplist.GetShipObject(shipNumberSelected),transform.position,placeInRow.transform.rotation);
         // clone.transform.parent = placeInRow;
@@ -62,19 +60,25 @@ gameManager.shipPlacementControls.UpdateShipButtons(money);
       //set new ship as child of placeInRow
 
     }
-    public void EnableShip(GameObject newship,Vector3 placepos)
+    public void EnableShip(GameObject newship,Vector3 placepos,int shipnumber)
     {
-      if(CheckMoney(shipNumberSelected) == true )
+      if(CheckMoney(shipnumber) == true )
       {
         //deduct money
-        money -= shipNumberSelected;
-        moneyText.text = money.ToString();
+        AddMoney(-shipnumber);
         if(shipManager != null)
         { shipManager.EnableShip(newship);}
 
-      }
+      }else{Destroy(newship);}
       gameManager.shipPlacementControls.UpdateShipButtons(money);
     }
+    public void AddMoney(int value)
+    {
+      money += value;
+      moneyText.text = money.ToString();
+      gameManager.levelManager.UpdateCurrentLevelProgressMoney(value,money);
+    }
+
     public bool CheckMoney(int cost)
     {
         if(money >= cost){return true;}

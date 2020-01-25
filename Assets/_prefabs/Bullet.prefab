@@ -98,6 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletHolder: {fileID: 0}
   lifetime: 10
+  myLifeTime: 10
   speed: -2
   hortSpeed: 0
   temploc: 0
